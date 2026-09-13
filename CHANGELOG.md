@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.0.0 (2026-09-13)
+
+
+### Bug Fixes
+
+* finish job ([27800e6](https://github.com/grials-enterprise/shared-tools/commit/27800e6a26e19224a4a28ce23d3ac9bb646d011e))
+* first commit ([376aedf](https://github.com/grials-enterprise/shared-tools/commit/376aedff97594091129c8e9f8c918f17813806b3))
+
 ## [1.0.118](https://github.com/devops-pegasi/shared-tools/compare/v1.0.117...v1.0.118) (2026-03-19)
 
 
