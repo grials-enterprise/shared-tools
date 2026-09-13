@@ -1,0 +1,23 @@
+extends: '@istanbuljs/nyc-config-typescript'
+all: true
+extension:
+  - '.ts'
+include:
+  - 'src/**/*.ts'
+exclude:
+  - '**/*.d.ts'
+  - 'dist/**'
+  - 'tests/**'
+clean: true
+temp-directory: 'coverage'
+report-dir: 'coverage'
+skip-full: false
+reporter:
+  - text
+  - html
+  - json
+check-coverage: true
+branches: 100
+lines: 100
+functions: 100
+statements: 100
