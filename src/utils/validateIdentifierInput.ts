@@ -49,7 +49,7 @@ export const validateIdentifierInput = (identifier: string, identifierType: IIde
         const errorFound = errors?.find((item) => item?.text === result);
 
         if (errorFound) {
-          const errorTradunction = errorFound?.displays?.find((value) => value?.language === language);
+          const errorTradunction = errorFound.displays?.find((value) => value?.language === language);
 
           valid = errorTradunction?.value ? errorTradunction.value : defaultError;
         } else {

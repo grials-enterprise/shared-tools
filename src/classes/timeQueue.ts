@@ -83,7 +83,7 @@ export class TimeQueue {
       id: jobId,
       listener,
     };
-    this.#queueTimes.get(time)?.jobs.push(job);
+    this.#queueTimes.get(time)!.jobs.push(job);
 
     return listener;
   }
@@ -92,8 +92,8 @@ export class TimeQueue {
     const queues: { [key: string]: string[] } = {};
 
     for (const key of this.#queueTimes.keys()) {
-      const queue = this.#queueTimes.get(key) || { jobs: [] };
-      queues[key] = queue.jobs.map((job) => job?.id);
+      const queue = this.#queueTimes.get(key)!;
+      queues[key] = queue.jobs.map((job) => job.id);
     }
 
     return queues;
@@ -101,27 +101,22 @@ export class TimeQueue {
   clearQueue(): void {
     this.#queueTimes.forEach((queue: ITimeQueue) => {
       for (const job of queue.jobs) {
-        job.listener?.error(new Error('Job cancelled'));
-        job.listener?.complete();
+        job.listener.error(new Error('Job cancelled'));
+        job.listener.complete();
       }
     });
     this.#queueTimes = new Map();
   }
   #convertTimeToMs(time: string): number {
     const timeValue = parseInt(time.slice(0, -1), 10);
-    const timeUnit = time.slice(-1).toLowerCase();
+    const timeUnit = time.slice(-1).toLowerCase() as 's' | 'm' | 'h' | 'd';
+    const factors: Record<'s' | 'm' | 'h' | 'd', number> = {
+      s: 1000,
+      m: 60 * 1000,
+      h: 60 * 60 * 1000,
+      d: 24 * 60 * 60 * 1000,
+    };
 
-    switch (timeUnit) {
-      case 's':
-        return timeValue * 1000;
-      case 'm':
-        return timeValue * 60 * 1000;
-      case 'h':
-        return timeValue * 60 * 60 * 1000;
-      case 'd':
-        return timeValue * 24 * 60 * 60 * 1000;
-      default:
-        throw new Error('Invalid time unit. Use s, m, h, or d.');
-    }
+    return timeValue * factors[timeUnit];
   }
 }

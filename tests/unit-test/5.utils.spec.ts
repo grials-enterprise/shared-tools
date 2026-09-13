@@ -160,6 +160,25 @@ describe('utils', function () {
     assert.strictEqual(response, -1);
   });
 
+  it('success, interval with retries - timeout during retry wait', async function () {
+    this.timeout('3s');
+    const response = await intervalWithRetries(
+      () => {
+        return new Promise((_, reject) => {
+          setTimeout(() => {
+            reject('reject');
+          }, 50);
+        });
+      },
+      2,
+      1000,
+      500
+    );
+
+    assert.strictEqual(response, 0);
+    await new Promise((resolve) => setTimeout(resolve, 800));
+  });
+
   it('success, create exam order number', function () {
     const orderNumber = createExamOrderNumber();
     const regex = /^[0-9]{18}$/; // YYYYMMDDHHmmss + 4 random digits

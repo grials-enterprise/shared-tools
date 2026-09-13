@@ -147,4 +147,86 @@ describe('classes', function () {
     assert.strictEqual(timeQueue.getAllQueueIds()[time].length, 0);
     assert.strictEqual(completedJobs, 3);
   });
+
+  it('error, job times out', async function () {
+    this.timeout('3s');
+    const jobHandler = new JobHandler();
+    const promise = jobHandler.startNewJob('timeout-job', '1s');
+    await assert.rejects(promise, /Job timed out/);
+    assert.strictEqual(jobHandler.getAllJobIds().length, 0);
+  });
+
+  it('error, complete job not found', () => {
+    const jobHandler = new JobHandler();
+    assert.throws(() => jobHandler.completeJob('missing-job', {}), /not found/);
+  });
+
+  it('success, startNewJob with default maxTime', async () => {
+    const jobHandler = new JobHandler();
+    const jobId = 'default-job';
+    setTimeout(() => {
+      jobHandler.completeJob(jobId, { ok: true });
+    }, 100);
+    const response = await jobHandler.startNewJob(jobId);
+    assert.deepStrictEqual(response, { ok: true });
+  });
+
+  it('success, getAllJobIds returns pending job ids', async () => {
+    const jobHandler = new JobHandler();
+    const jobId = 'pending-job';
+    const promise = jobHandler.startNewJob(jobId, '1s');
+    assert.deepStrictEqual(jobHandler.getAllJobIds(), [jobId]);
+    jobHandler.completeJob(jobId, { done: true });
+    await promise;
+    assert.deepStrictEqual(jobHandler.getAllJobIds(), []);
+  });
+
+  it('error, timeQueue startQueue for non-existent queue', () => {
+    const timeQueue = new TimeQueue();
+    assert.throws(() => timeQueue.startQueue('nope'), /does not exist/);
+  });
+
+  it('success, timeQueue startQueue already started returns', () => {
+    const timeQueue = new TimeQueue();
+    timeQueue.addNewTimeQueue('1s');
+    timeQueue.startQueue('1s');
+    assert.doesNotThrow(() => timeQueue.startQueue('1s'));
+  });
+
+  it('error, timeQueue addNewTimeQueue invalid format', () => {
+    const timeQueue = new TimeQueue();
+    assert.throws(() => timeQueue.addNewTimeQueue('1x'), /Invalid time format/);
+    assert.throws(() => timeQueue.addNewTimeQueue('x'), /Invalid time format/);
+    assert.throws(() => timeQueue.addNewTimeQueue(''), /Invalid time format/);
+  });
+
+  it('success, timeQueue addNewTimeQueue duplicate', () => {
+    const timeQueue = new TimeQueue();
+    timeQueue.addNewTimeQueue('1s');
+    timeQueue.addNewTimeQueue('1s');
+    assert.strictEqual(Object.keys(timeQueue.getAllQueueIds()).length, 1);
+  });
+
+  it('error, timeQueue addJobToQueue non-existent', () => {
+    const timeQueue = new TimeQueue();
+    assert.throws(() => timeQueue.addJobToQueue('nope'), /does not exist/);
+  });
+
+  it('success, timeQueue getQueue non-existent returns empty array', () => {
+    const timeQueue = new TimeQueue();
+    assert.deepStrictEqual(timeQueue.getQueue('nope'), []);
+  });
+
+  it('success, timeQueue clearQueue emits error to jobs', (done) => {
+    const timeQueue = new TimeQueue();
+    timeQueue.addNewTimeQueue('1s');
+    const listener = timeQueue.addJobToQueue('1s');
+    listener.subscribe({
+      error: (err) => {
+        assert.strictEqual(err.message, 'Job cancelled');
+        done();
+      },
+    });
+    timeQueue.clearQueue();
+  });
 });

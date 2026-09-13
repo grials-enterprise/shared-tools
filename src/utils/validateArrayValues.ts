@@ -14,7 +14,7 @@ export const validateArrayValues = (data: any) => {
       if (Object.keys(response).length) {
         newData.push(response);
       }
-    } else if (typeCheck('array', item)) {
+    } else if (typeCheck('Array', item)) {
       const response: any = validateArrayValues(item);
       newData.push(response);
     } else {

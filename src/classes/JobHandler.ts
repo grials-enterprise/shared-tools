@@ -64,8 +64,8 @@ export class JobHandler {
 
   clearQueue(): void {
     this.#queueJobs.forEach((job) => {
-      job.listener?.error(new Error('Job cancelled'));
-      job.listener?.complete();
+      job.listener.error(new Error('Job cancelled'));
+      job.listener.complete();
     });
     this.#queueJobs = [];
   }

@@ -39,30 +39,30 @@ export const newIntrinsicInstance = (data: any) => {
 
   if (
     typeCheck('Object', data) &&
-    (data?.constructor?.name === 'Object' ||
-      (data?.constructor?.name !== 'Array' &&
-        data?.constructor?.name !== 'Date' &&
-        data?.constructor?.name !== 'String' &&
-        data?.constructor?.name !== 'Number' &&
-        data?.constructor?.name !== 'Boolean' &&
-        data?.constructor?.name !== 'Function' &&
-        data?.constructor?.name !== 'RegExp' &&
-        data?.constructor?.name !== 'Error' &&
-        data?.constructor?.name !== 'Symbol' &&
-        data?.constructor?.name !== 'BigInt' &&
-        data?.constructor?.name !== 'WeakMap' &&
-        data?.constructor?.name !== 'WeakSet' &&
-        data?.constructor?.name !== 'Map' &&
-        data?.constructor?.name !== 'Set' &&
-        data?.constructor?.name !== 'ArrayBuffer' &&
-        data?.constructor?.name !== 'DataView' &&
-        data?.constructor?.name !== 'Promise' &&
-        data?.constructor?.name !== 'Generator' &&
-        data?.constructor?.name !== 'GeneratorFunction' &&
-        data?.constructor?.name !== 'AsyncFunction' &&
-        data?.constructor?.name !== 'ObjectId' &&
-        data?.constructor?.name !== 'AsyncGenerator' &&
-        data?.constructor?.name !== 'AsyncGeneratorFunction'))
+    (data.constructor?.name === 'Object' ||
+      (data.constructor?.name !== 'Array' &&
+        data.constructor?.name !== 'Date' &&
+        data.constructor?.name !== 'String' &&
+        data.constructor?.name !== 'Number' &&
+        data.constructor?.name !== 'Boolean' &&
+        data.constructor?.name !== 'Function' &&
+        data.constructor?.name !== 'RegExp' &&
+        data.constructor?.name !== 'Error' &&
+        data.constructor?.name !== 'Symbol' &&
+        data.constructor?.name !== 'BigInt' &&
+        data.constructor?.name !== 'WeakMap' &&
+        data.constructor?.name !== 'WeakSet' &&
+        data.constructor?.name !== 'Map' &&
+        data.constructor?.name !== 'Set' &&
+        data.constructor?.name !== 'ArrayBuffer' &&
+        data.constructor?.name !== 'DataView' &&
+        data.constructor?.name !== 'Promise' &&
+        data.constructor?.name !== 'Generator' &&
+        data.constructor?.name !== 'GeneratorFunction' &&
+        data.constructor?.name !== 'AsyncFunction' &&
+        data.constructor?.name !== 'ObjectId' &&
+        data.constructor?.name !== 'AsyncGenerator' &&
+        data.constructor?.name !== 'AsyncGeneratorFunction'))
   ) {
     newValue = { ...data };
     for (const key of Object.keys(newValue)) {
