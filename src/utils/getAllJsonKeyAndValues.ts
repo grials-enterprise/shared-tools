@@ -43,6 +43,22 @@ const findAllObjectKeyAndValue = (data: any, currentValues: any[], currentValueK
   throw new Error(`Invalid data type ${typeof data} in ${currentValueKey}`);
 };
 
+/**
+ * Flattens an object into a list of `{ key, value }` entries, using dot
+ * notation for nested objects and indexes for arrays.
+ *
+ * @example
+ * ```ts
+ * getAllJsonKeyAndValues({ a: 1, b: { c: 'x' } });
+ * // [{ key: 'a', value: 1 }, { key: 'b.c', value: 'x' }]
+ * ```
+ *
+ * @param data - Object to flatten.
+ * @returns Array of `{ key, value }` entries. Empty arrays produce the value `'__EMPTY__'`.
+ * @throws {@link https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Error | Error} when a nested value has an unsupported type.
+ *
+ * @category Data & JSON
+ */
 export const getAllJsonKeyAndValues = (data: any): any[] => {
   let response: any[] = [];
   if (!typeCheck('Object', data)) {

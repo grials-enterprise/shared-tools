@@ -1,9 +1,26 @@
 import { typeCheck } from 'type-check';
 
+/**
+ * Deep-clones an object using JSON serialization.
+ *
+ * @param data - Object to clone.
+ * @returns A deep copy of the object.
+ *
+ * @category Data & JSON
+ */
 export const newValueInstance = (data: object) => {
   return JSON.parse(JSON.stringify(data));
 };
 
+/**
+ * Creates a deep copy of a value preserving its intrinsic type (Date, Map,
+ * Array, custom class instances, etc.).
+ *
+ * @param data - Value to clone.
+ * @returns A deep copy of the value, or the value itself for unsupported types.
+ *
+ * @category Data & JSON
+ */
 export const newIntrinsicInstance = (data: any) => {
   let newValue = data;
   if (typeCheck('String', data)) {

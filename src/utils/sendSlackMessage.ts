@@ -1,6 +1,22 @@
 import { AxiosResponse, RawAxiosRequestHeaders } from 'axios';
 import { postExternalResource } from './request';
 
+/**
+ * Sends a message to a Slack channel using the `chat.postMessage` API.
+ *
+ * @example
+ * ```ts
+ * await sendSlackMessage('C12345', 'Hello world!', 'Bearer xoxb-...');
+ * ```
+ *
+ * @param channelId - Slack channel id.
+ * @param message - Message text.
+ * @param slackChannelToken - Slack token (e.g. `'Bearer xoxb-...'`).
+ * @returns The Axios response of the Slack API.
+ * @throws {@link https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Error | Error} if `slackChannelToken` is empty.
+ *
+ * @category Async & HTTP
+ */
 export const sendSlackMessage = async (
   channelId: string,
   message: string,

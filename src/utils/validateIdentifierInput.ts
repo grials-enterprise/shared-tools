@@ -1,12 +1,22 @@
 import { executeBasicFunctionString } from './executeFunctionString';
 
-interface IDisplay {
+/**
+ * A display string with its language translation.
+ *
+ * @category Data & JSON
+ */
+export interface IDisplay {
   _id?: string;
   language?: string;
   abbrevation?: string;
   value?: string;
 }
 
+/**
+ * Describes an identifier type with its validations and translations.
+ *
+ * @category Data & JSON
+ */
 export interface IIdentifierType {
   _id?: string;
   condig?: {
@@ -33,6 +43,17 @@ export interface IIdentifierType {
   msgInvalid?: IDisplay[];
 }
 
+/**
+ * Validates an identifier against the rules (functions) defined in an
+ * {@link IIdentifierType}.
+ *
+ * @param identifier - Identifier to validate.
+ * @param identifierType - Identifier type with its validation rules.
+ * @param lang - Language used to translate the error message. Defaults to `'en'`.
+ * @returns `null` when valid, otherwise an error message string.
+ *
+ * @category Data & JSON
+ */
 export const validateIdentifierInput = (identifier: string, identifierType: IIdentifierType, lang?: string) => {
   let valid = null;
   const defaultError = 'The identifier is not valid';
