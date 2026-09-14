@@ -1,9 +1,26 @@
 import httpClient, { AxiosResponse, RawAxiosRequestHeaders } from 'axios';
 
-type AxiosHeaders = {
+/**
+ * Map of header names to header values.
+ *
+ * @category Async & HTTP
+ */
+export type AxiosHeaders = {
   [key: string]: string;
 };
 
+/**
+ * Performs a `GET` request to an external resource.
+ *
+ * @param url - Target URL.
+ * @param headers - Optional request headers.
+ * @param params - Optional query parameters.
+ * @param logger - Optional logger with `info` and `error` methods.
+ * @returns The Axios response.
+ * @throws The Axios error when the request fails.
+ *
+ * @category Async & HTTP
+ */
 export const getExternalResource = async (
   url: string,
   headers: RawAxiosRequestHeaders | AxiosHeaders = {},
@@ -19,6 +36,19 @@ export const getExternalResource = async (
   }
 };
 
+/**
+ * Performs a `POST` request to an external resource.
+ *
+ * @param url - Target URL.
+ * @param data - Request body.
+ * @param headers - Optional request headers.
+ * @param params - Optional query parameters.
+ * @param logger - Optional logger with `info` and `error` methods.
+ * @returns The Axios response.
+ * @throws The Axios error when the request fails.
+ *
+ * @category Async & HTTP
+ */
 export const postExternalResource = async (
   url: string,
   data: any,
@@ -35,6 +65,19 @@ export const postExternalResource = async (
   }
 };
 
+/**
+ * Performs a `PATCH` request to an external resource.
+ *
+ * @param url - Target URL.
+ * @param data - Request body.
+ * @param headers - Optional request headers.
+ * @param params - Optional query parameters.
+ * @param logger - Optional logger with `info` and `error` methods.
+ * @returns The Axios response.
+ * @throws The Axios error when the request fails.
+ *
+ * @category Async & HTTP
+ */
 export const patchExternalResource = async (
   url: string,
   data: any,
@@ -51,6 +94,19 @@ export const patchExternalResource = async (
   }
 };
 
+/**
+ * Performs a `DELETE` request to an external resource.
+ *
+ * @param url - Target URL.
+ * @param data - Request body.
+ * @param headers - Optional request headers.
+ * @param params - Optional query parameters.
+ * @param logger - Optional logger with `info` and `error` methods.
+ * @returns The Axios response.
+ * @throws The Axios error when the request fails.
+ *
+ * @category Async & HTTP
+ */
 export const deleteExternalResource = async (
   url: string,
   data: any,

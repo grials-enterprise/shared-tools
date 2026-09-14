@@ -1,6 +1,15 @@
 import { typeCheck } from 'type-check';
 import { validateArrayValues } from './validateArrayValues';
 
+/**
+ * Recursively removes `null`, `undefined` and empty-string values from an
+ * object, cleaning nested objects and arrays, and trimming string values.
+ *
+ * @param data - Object to clean.
+ * @returns A new object without nullish or empty values.
+ *
+ * @category Data & JSON
+ */
 export const validateObjectValues = (data: any) => {
   const newData = { ...data };
   for (const key of Object.keys(newData)) {
