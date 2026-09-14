@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.1](https://github.com/grials-enterprise/shared-tools/compare/v1.0.0...v1.0.1) (2026-09-14)
+
+
+### Bug Fixes
+
+* finish job ([4f3dc34](https://github.com/grials-enterprise/shared-tools/commit/4f3dc34862667c5012ba9e695a7d8e90bd38ca1a))
+
 ## 1.0.0 (2026-09-13)
 
 
